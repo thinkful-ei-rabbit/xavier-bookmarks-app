@@ -1,10 +1,15 @@
 import $ from 'jquery';
+import 'normalize.css';
+import './index.css';
+import api from './api';
+import store from './scripts/store';
+import bookmarks from './scripts/bookmarks';
 
-function main() {
-  console.log('DOM is loaded');
+const main = function () {
+  console.log('DOM loaded');
 
-  const startMsg = $('<p>Webpack is working!</p>');
-  $('#root').append(startMsg);
+  const bookPage = $('<p>Bookmarks!</p>');
+  $('#root').html();
 }
 
 $(main);
