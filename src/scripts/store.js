@@ -1,3 +1,4 @@
+let bookmarks = [];
 const store = {
     bookmarks: [
       {
@@ -31,4 +32,21 @@ const store = {
     filter: 0
   };
 
-  export default store;
+
+  const addBookmark = function (bookmark) {
+    this.bookmarks.push(bookmark);
+  };
+
+  function findAndUpdate(id, newData) {
+    Object.assign(this.items.find(item => item.id === id), newData);
+  }
+
+  const setError = function (error) {
+    this.error = error;
+  };
+
+  const toggleExpanded = function () {
+    this.expanded = !this.expanded;
+  };
+
+  export default {};

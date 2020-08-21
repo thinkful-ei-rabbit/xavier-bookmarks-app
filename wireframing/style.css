@@ -1,5 +1,6 @@
 body {
     width: 100%;
+    margin: 0 auto;
 }
 
 .header {
@@ -45,14 +46,17 @@ body {
     font-size: 20px;
     font-weight: bold;
     border-radius: 0 0 5px 5px;
+    border: none;
 }
 
-.edit-btn {
+.edit-btn-dropdown {
     background-color: #6658f5;
     color: white;
     font-size: medium;
     border-radius: 5px;
-    padding: 10px auto;
+    margin: 4px;
+    padding: 10px;
+    border: none;
 }
 
 #filter-menu {
@@ -61,6 +65,11 @@ body {
     font-size: 20px;
     border: 2px #bdbdbd solid;
     border-radius: 0 0 5px 5px;
+}
+
+.bookmark-name-link {
+    color: black;
+    text-decoration: none;
 }
 
 .bookmarks-list {
@@ -80,16 +89,109 @@ body {
 }
 
 .even {
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+    border-left: none;
 }
 
 .odd {
-    justify-content: space-between;
-    border-right: 0px;
+    border-right: none;
 }
 
 .odd p {
-    margin-left: 10px;
+    margin-left: 12px;
+    font-size: x-large;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.fa-star {
+    /* color: gold; */
+}
+
+.edit-active {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.name-url-rating {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    border-bottom: 1px #bdbdbd solid;
+}
+
+#description-box {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    border-bottom: 1px #bdbdbd solid;
+}
+
+/* #name-input, #url-input {
+    flex-grow: 1;
+}
+
+#rating-select {
+    flex-grow: 2;
+} */
+
+.description-edit-button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5px;
+}
+
+#save-btn {
+    background-color: #34d300;
     font-size: large;
+    color: white;
+    border: none;
+    width: 60px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+#delete-btn {
+    background-color: #ff2700;
+    border: none;
+    width: 60px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.fa-trash-alt {
+    font-size: large;
+}
+
+@media screen and (max-width: 350px) {
+    #add-new-btn, #filter-menu {
+        width: 130px
+    }
+
+    .odd p {
+        font-size: medium;
+    }
+
+    .fa-star {
+        font-size: small;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    button:hover {
+        cursor: pointer;
+    }
+
+    .container {
+        width: 70%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .container {
+        width: 50%;
+    }
 }

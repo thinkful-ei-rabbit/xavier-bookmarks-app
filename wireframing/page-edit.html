@@ -8,47 +8,70 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
         integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
         crossorigin="anonymous" />
-    <title>Bookmarks Page</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Edit/Toggle</title>
 </head>
 
 <body>
-    <header>
+    <header class="header">
         <i class="fas fa-user-circle"></i>
         <h1>My Bookmarks</h1>
     </header>
 
     <div class="container">
-        <div class="add-filter">
+        <div class="buttons">
             <button id="add-new-btn">+ NEW <i class="fas fa-bookmark"></i></button>
             <label for="filter-menu"></label>
             <select id="filter-menu" name="filter-by">
                 <option value="" selected>Filter By:</option>
-                <option value="title">title</option>
-                <option value="title">title</option>
-                <option value="title">title</option>
-                <option value="title">title</option>
+                <option value="5-star">5 stars</option>
+                <option value="4-star">4 stars</option>
+                <option value="3-star">3 stars</option>
+                <option value="2-star">2 stars</option>
             </select>
         </div>
 
         <div class="bookmarks-list">
-            <div class="row" style="display: flex;">
-                <div class="column" style="background-color:#aaa;">
-                    <h2>Column 1</h2>
-                    <p>Some text..</p>
-                    <button class="edit-btn">Edit</button>
+            <div class="row">
+                <div class="column odd">
+                    <a href="" class="bookmark-name-link"><p>Github</p></a>
                 </div>
-                <div class="column" style="background-color:#bbb;">
-                    <i class="fas fa-star" style="color: gold;"></i>
-                    <i class="fas fa-star" style="color: gold;"></i>
-                    <i class="fas fa-star" style="color: gold;"></i>
+                <div class="column even">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <button class="edit-btn-dropdown"><i class="fas fa-caret-down"></i></button>
                 </div>
             </div>
             <div class="edit-active">
-                <input type="text" placeholder="Name">
-                <input type="text" placeholder="Website URL">
-                <textarea name="" id="" cols="30" rows="10" placeholder="Description"></textarea>
+                <form class="form" method="POST">
+                    <div class="name-url-rating">
+                        <input type="text" placeholder="Name" id="name-input">
+                        <input type="text" placeholder="Website URL" id="url-input">
+                        <input type="number" id="rating-select" max="5" min="1" placeholder="Star Rating">
+                    </div>
+                    <textarea name="" id="description-box" rows="5" placeholder="Description"></textarea>
+                    <div class="description-edit-button-container">
+                        <button id="save-btn">save</button>
+                        <button id="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <div class="column odd">
+                    <a href="" class="bookmark-name-link"><p>Youtube</p></a>
+                </div>
+                <div class="column even">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <button class="edit-btn-dropdown"><i class="fas fa-caret-down"></i></button>
+                </div>
             </div>
         </div>
     </div>
