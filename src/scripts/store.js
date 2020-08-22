@@ -1,52 +1,37 @@
-let bookmarks = [];
-const store = {
-    bookmarks: [
-      {
-        id: '',
-        title: 'Google',
-        rating: 4,
-        url: 'http://www.Google.com',
-        description: 'the search engine that changed everything',
-        expanded: false
-      },
-      {
-        id: '',
-        title: 'Github',
-        rating: 5,
-        url: 'http://www.Github.com',
-        description: 'cloud based version-control file system',
-        expanded: false
-      },
-      {
-        id: '',
-        title: 'Youtube',
-        rating: 5,
-        url: 'http://www.Youtube.com',
-        description: 'Online videos',
-        expanded: true
-      }
-      
-    ],
-    adding: false,
-    error: null,
-    filter: 0
-  };
+import bookmarks from "./bookmarks";
+import $ from "jquery";
 
+let bookmarkers = [];
+let error = null;
+let filter = 1;
 
-  const addBookmark = function (bookmark) {
-    this.bookmarks.push(bookmark);
-  };
+const addBookmark = function (bookmark) {
+  this.bookmarkers.push(bookmark);
+};
 
-  function findAndUpdate(id, newData) {
-    Object.assign(this.items.find(item => item.id === id), newData);
-  }
+function findAndUpdate(id, newData) {
+  Object.assign(
+    this.items.find((item) => item.id === id),
+    newData
+  );
+}
 
-  const setError = function (error) {
-    this.error = error;
-  };
+const setError = function (error) {
+  this.error = error;
+};
 
-  const toggleExpanded = function () {
-    this.expanded = !this.expanded;
-  };
+const toggleExpandedView = function () {
+  this.expanded = !this.expanded;
+};
 
-  export default {};
+addBookmark;
+
+export default {
+  bookmarkers,
+  error,
+  filter,
+  addBookmark,
+  findAndUpdate,
+  setError,
+  toggleExpandedView,
+};
