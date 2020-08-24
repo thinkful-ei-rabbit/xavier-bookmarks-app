@@ -2,6 +2,7 @@ import bookmarks from "./bookmarks";
 import $ from "jquery";
 
 let bookmarkers = [];
+console.log(bookmarkers)
 let error = null;
 let filter = 1;
 
@@ -9,7 +10,7 @@ const addBookmark = function (bookmark) {
   this.bookmarkers.push(bookmark);
 };
 
-function findAndUpdate(id, newData) {
+const findAndUpdate = function (id, newData) {
   Object.assign(
     this.items.find((item) => item.id === id),
     newData

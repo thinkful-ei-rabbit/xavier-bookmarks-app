@@ -7,12 +7,15 @@ import bookmarks from "./bookmarks";
 import { library, icon } from "@fortawesome/fontawesome-svg-core";
 
 const main = function () {
+
   api
     .getBookmarks()
     .then((response) => response.json())
-    .then(async (data) => {
-      let bookmarkers = await bookmarks.generateBookmarkElements(true, data);
-      let init = await bookmarks.generateHeaderAndMainContainer();
+    .then(data => {
+      store.addBookmark(data);
+      console.log(store.bookmarkers)
+      let bookmarkers = bookmarks.generateBookmarkElements(true, data);
+      let init = bookmarks.generateHeaderAndMainContainer();
       bookmarkers.forEach((item) => {
         $(".bookmarks-list").prepend(item);
       });
