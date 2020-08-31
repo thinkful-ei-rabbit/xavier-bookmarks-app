@@ -13,14 +13,19 @@ const main = function () {
     .then((response) => response.json())
     .then(data => {
       store.addBookmark(data);
-      console.log(store.bookmarkers)
       let bookmarkers = bookmarks.generateBookmarkElements(true, data);
-      let init = bookmarks.generateHeaderAndMainContainer();
+      bookmarks.generateHeaderAndMainContainer();
       bookmarkers.forEach((item) => {
         $(".bookmarks-list").prepend(item);
       });
       bookmarks.handleEditBookmark();
+      bookmarks.handleDeleteBookmark();
+      bookmarks.handleFilter();
+      bookmarks.handleAddNewButtonClicked();
+      bookmarks.handleCancelBtnClicked();
     });
 };
 
 $(main);
+
+

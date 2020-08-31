@@ -3,6 +3,36 @@ import store from "./store";
 import api from "./api";
 import { library, icon } from "@fortawesome/fontawesome-svg-core";
 
+const generateBookmarksFromStore = () => {
+  let bookmarksData = store.getBookmarks()
+  bookmarksData.forEach((bookmark)=> {
+    let url = bookmarkData.url;
+    let name = bookmarkData.title;
+    let description = bookmarkData.desc;
+    let rating = bookmarkData.rating;
+
+    let starsHtml = ''
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        starsHtml +=`<span>star${i} = '<i class="fas fa-star gold-star"></i>'</span>`;
+      } else {
+        starsHtml += `<span>star${i} = '<i class="fas fa-star"></i>'</span>`;
+      }
+    }
+    return `<div class="row"><div class='accordion-head'>
+    <div class="column odd">
+        <a href="${url}" target='_blank' class="bookmark-name-link"><p>${name}</p></a>
+    </div>
+    <div class="column even">
+        ${starsHtml}
+        <button class="edit-btn-dropdown"><i class="fas fa-caret-down"></i></button>
+    </div>
+    </div>
+    <div class='description-toggle'></div>
+    </div>`;
+  })
+}
 // this generates bookmarks
 // make this a for loop
 const generateBookmarkElements = function (multi, bookmarkData) {
@@ -46,7 +76,7 @@ const generateBookmarkElements = function (multi, bookmarkData) {
                 ${star3}
                 ${star4}
                 ${star5}
-                <button class='edit-btn-dropdown'><i class='fas fa-caret-down'></i></button>
+                <button class='edit-btn-dropdown'><i class='fas fa-caret-down' id=${bookmarks.id}></i></button>
             </div>
             </div>
             <div class='description-toggle'></div>
@@ -122,12 +152,10 @@ const generateHeaderAndMainContainer = function () {
 
 //generate html for expanded toggle bookmark & editing
 const generateBookmarkExpansionViewHTML = function (bookmark) {
-    
-
-  let url = store.bookmarkers[1].url;
-  let name = store.bookmarkers[1].title;
-  let description = store.bookmarkers[1].desc;
-  let rating = store.bookmarkers[1].rating;
+  let url = bookmark.url;
+  let name = bookmark.title;
+  let description = bookmark.desc;
+  let rating = bookmark.rating;
 
   return `<div class="edit-active">
     <form class="form">
@@ -163,46 +191,67 @@ const generateAddBookmarkForm = function () {
 };
 
 // edit the rating and description of a bookmark in my list
+
 const handleEditBookmark = function () {
-  $("#root").on("click", ".edit-btn-dropdown", async function (event) {
+  $("#root").on("click", ".edit-btn-dropdown", function (event) {
     event.preventDefault();
-    let editForm = await generateBookmarkExpansionViewHTML();
+    let editForm = generateBookmarkExpansionViewHTML(currentBookmark);
     $(".description-toggle > .edit-active").remove();
     $(".description-toggle").slideUp();
     $(this).parents(".row").find(".description-toggle").html(editForm);
     $(this).parents(".row").find(".description-toggle").slideDown();
-    $(".edit-active").on("click", "#save-btn", (event) => {
-      event.preventDefault();
-      handleSaveBookmark();
-    });
   });
 };
 
-// add bookmarks to my bookmark list by clicking NEW btn
-const handleAddNewBookmark = function () {
+//update button
+const handleUpdateButtonClick = () => {
+  $("#root").on("click", ".save-btn", async (event) => {
+    event.preventDefault();
+    let bookmarkID = event.target.id
+    let currentBookmark= store.find(bookmarkID)
+    //need to handle this in a promise way 
+    //in catch block set the error
+    await api.updateBookmark(bookmarkID, currentBookmark)
+    store.findAndUpdate(bookmarkID, currentBookmark)
+    render();
+  });
+}
+
+const handleAddNewButtonClicked = function() {
   $(".buttons").on("click", "#add-new-btn", (event) => {
     event.preventDefault();
-    $(".add-content").html(generateAddBookmarkForm());
+    let addBookMarkForm = generateAddBookmarkForm()
+    $(".add-content").html(addBookMarkForm)
+  });
+}
+
+// add bookmarks to my bookmark list by clicking NEW btn
+//add new button
+const handleAddNewBookmark = function () {
     $(".description-edit-button-container").on(
       "click",
       ".save-btn",
       (event) => {
         event.preventDefault();
+        console.log(store.error)
         if (store.error) {
-          $.toast(error);
+          // $.toast(store.error);
         } else {
           handleSaveBookmark();
         }
       }
     );
-  });
-  $(".container").on("click", "#cancel-btn", (event) => {
+};
+
+const handleCancelBtnClicked = () => {
+  $("#root").on("click", "#cancel-btn", (event) => {
     event.preventDefault();
     $(".edit-active").remove();
   });
-};
+}
 
-const handleSaveBookmark = async function () {
+// change this to createBookmark
+const handleSaveBookmark = function () {
   let bookmark = {
     title: $(".name-input").val(),
     url: $(".url-input").val(),
@@ -210,7 +259,9 @@ const handleSaveBookmark = async function () {
     rating: $(".rating-select").val(),
   };
 
-  let response = await api.createBookmark(bookmark);
+  let response = api.createBookmark(bookmark);
+  console.log(response)
+  //update in your store
   let bookmarkHTML = generateBookmarkElements(false, response);
   $(".bookmarks-list").prepend(bookmarkHTML);
   $(".edit-active").remove();
@@ -225,20 +276,29 @@ const render = function (bookmarkHTML) {
 
 // remove bookmarks from my bookmark list, needs attn
 const handleDeleteBookmark = function () {
-  $(".description-toggle").on("click", "#delete-btn", (event) => {
-    // get the index of the item in store.bookmarkers
-    const id = getItemIdFromElement(event.currentTarget);
-    // delete the item
-    api
-      .deleteBookmark(id)
+  $('#root').on('click', '.delete-btn', (event) => {
+    event.preventDefault()
+    let id = event.target.id;
+    api.deleteBookmark(id)
+    console.log(id)
       .then(() => {
         store.findAndDelete(id);
         render();
-      })
+    })
       .catch((error) => {
         store.setError(error.message);
         renderError();
-      });
+    });
+  });
+  //look again if you need this
+};
+
+const handleFilter = function () {
+  $(`#root`).on(`change`, `#filter-menu`, () => {
+    let value = $(`#root #filter-menu`).val();
+    store.filter = value;
+    //need to call a function in your store to apply the filter
+    render();
   });
 };
 
@@ -269,7 +329,9 @@ const handleCloseError = function () {
 // use filter method
 // render at end of function
 const handleDropdownMenuClicked = function () {
-  $(".edit-btn-dropdown").click(() => {
+  $("#root").on("click", ".edit-btn-dropdown", (event) => {
+    //check when to use this 
+    event.preventDefault()
     store.toggleExpandedView();
     render();
   });
@@ -288,4 +350,7 @@ export default {
   generateBookmarkExpansionViewHTML,
   handleDropdownMenuClicked,
   render,
+  handleFilter,
+  handleCancelBtnClicked,
+  handleAddNewButtonClicked
 };

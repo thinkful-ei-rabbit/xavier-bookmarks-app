@@ -2,7 +2,6 @@ import bookmarks from "./bookmarks";
 import $ from "jquery";
 
 let bookmarkers = [];
-console.log(bookmarkers)
 let error = null;
 let filter = 1;
 
@@ -12,10 +11,22 @@ const addBookmark = function (bookmark) {
 
 const findAndUpdate = function (id, newData) {
   Object.assign(
-    this.items.find((item) => item.id === id),
+    bookmarkers.find((item) => item.id === id),
     newData
   );
 }
+
+const find = function(id){
+  return bookmarkers.find((item) => item.id === id);
+}
+
+
+const findAndDelete = function (id) {
+  this.bookmarkers = this.bookmarkers.filter(item => {
+    return item.id !== id;
+  });
+}
+
 
 const setError = function (error) {
   this.error = error;
@@ -33,6 +44,8 @@ export default {
   filter,
   addBookmark,
   findAndUpdate,
+  findAndDelete,
   setError,
+  find,
   toggleExpandedView,
 };
