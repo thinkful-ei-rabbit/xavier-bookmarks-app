@@ -2,6 +2,8 @@ import $ from "jquery";
 import store from "./store";
 import api from "./api";
 
+
+// optional parameter to either take all bookmarks in store or filter
 const generateBookmarksFromStore = (bookmarkList = store.bookmarkers) => {
   let bookmarksHtml = ""
   console.log(bookmarkList)
@@ -103,10 +105,6 @@ const generateAddBookmarkForm = () => {
         </div>
     </form> 
 </div>`;
-};
-
-const getIDFromElement = (item) => {
-  return $(item).closest(".edit-btn-dropdown").attr('id');
 };
 
 // edit the rating and description of a bookmark in my list
@@ -283,7 +281,6 @@ const bindEventListeners = function () {
   handleCancelBtnClicked();
   handleDeleteBookmark();
   handleFilter();
-  getIDFromElement();
   handleCancelUpdateBtnClicked();
 };
 
@@ -302,7 +299,6 @@ export default {
   handleCancelBtnClicked,
   handleCreateBookmark,
   bindEventListeners,
-  getIDFromElement,
   handleCancelUpdateBtnClicked,
   handleAddNewButtonClicked
 };
