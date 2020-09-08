@@ -1,42 +1,37 @@
-import bookmarks from "./bookmarks";
-import $ from "jquery";
-
 let bookmarkers = [];
 let error = null;
-let filter = 1;
+let filter = 0;
 
-const addBookmark = function (bookmark) {
-  this.bookmarkers.push(bookmark);
-};
 
-const findAndUpdate = function (id, newData) {
-  Object.assign(
-    bookmarkers.find((item) => item.id === id),
-    newData
-  );
+const getBookmarks = () => {
+  return bookmarkers;
 }
 
-const find = function(id){
+const addBookmark = (bookmark) => {
+  bookmarkers.push(bookmark);
+};
+
+const findAndUpdate = (id, newData) => {
+  Object.assign(bookmarkers.find((item) => item.id === id), newData); 
+}
+
+const find = (id) => {
   return bookmarkers.find((item) => item.id === id);
 }
 
-
-const findAndDelete = function (id) {
-  this.bookmarkers = this.bookmarkers.filter(item => {
-    return item.id !== id;
-  });
+const findAndDelete = (id) => {
+   return bookmarkers.filter(item => item.id !== id);
 }
 
-
-const setError = function (error) {
-  this.error = error;
+const setError = (message) => {
+  return message
 };
 
-const toggleExpandedView = function () {
-  this.expanded = !this.expanded;
-};
+const filterBookmarks = (value) => {
+  console.log(typeof value)
+  return bookmarkers.filter(item => item.rating === Number(value));
+}
 
-addBookmark;
 
 export default {
   bookmarkers,
@@ -46,6 +41,7 @@ export default {
   findAndUpdate,
   findAndDelete,
   setError,
+  getBookmarks,
   find,
-  toggleExpandedView,
+  filterBookmarks
 };

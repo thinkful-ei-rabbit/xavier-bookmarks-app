@@ -1,42 +1,25 @@
+import store from './store'
+import bookmarks from './bookmarks'
+
 const BASE_URL = "https://thinkful-list-api.herokuapp.com/xavier/bookmarks";
 
 //FETCHES A BOOKMARK
-const getBookmarks = () => fetch(BASE_URL);
-
-//takes in bookmark param data and de-structures it
-//makes fetch request with data from bookmark
-//handles errors and rejected promises
-//returns fetch data
-const listApiFetch = (...args) => {
-  let error;
-  return fetch(...args)
-    .then((request) => {
-      if (!request.ok) {
-        error = { code: request.status };
-
-        // if response is not JSON type, place statusText in error object and
-        // immediately reject promise
-        if (!request.headers.get("content-type").includes("json")) {
-          error.message = request.statusText;
-          return Promise.reject(error);
-        }
-      }
-      return request.json();
+const getBookmarks = () => {
+  fetch(`https://thinkful-list-api.herokuapp.com/xavier/bookmarks`)
+  .then(res => {
+    return res.json()
+  })
+  .then((response) => {
+    response.forEach(bookmark => {
+      store.addBookmark(bookmark)
     })
-    .then((data) => {
-      if (error) {
-        error.message = data.message;
-        return Promise.reject(error);
-      }
-      // if all is well, return data
-      return data;
-    });
+    bookmarks.render(bookmarks.generateBookmarksFromStore())
+  })
 };
 
 //CREATE BOOKMARK
 const createBookmark = (bookmark) => {
-  // const newBookmarkValues = generateRequestBody(bookmark);
-  return listApiFetch(`${BASE_URL}`, {
+  return fetch(`https://thinkful-list-api.herokuapp.com/xavier/bookmarks`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -47,7 +30,8 @@ const createBookmark = (bookmark) => {
 
 //UPDATE BOOKMARK
 const updateBookmark = (id, obj) => {
-  const newData = JSON.stringify({ obj });
+  console.log(obj)
+  const newData = JSON.stringify(obj);
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PATCH',
     headers: {

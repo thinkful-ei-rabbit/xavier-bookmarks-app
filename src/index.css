@@ -55,8 +55,18 @@ body {
   font-size: medium;
   border-radius: 5px;
   margin: 4px;
-  padding: 10px;
+  padding: 5px 10px;
   border: none;
+}
+
+.cancel-update-btn {
+  background-color: red;
+  font-size: large;
+  color: white;
+  border: none;
+  width: 60px;
+  height: 30px;
+  border-radius: 5px;
 }
 
 #filter-menu {
@@ -105,6 +115,19 @@ body {
   margin-top: 10px;
   margin-bottom: 10px;
   text-transform: uppercase;
+}
+
+.error-container {
+  width: 70%;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px 0 0 0;
+  color: red;
+  border-radius: 10px 5px;
+}
+
+.error-container h3 {
+  margin: 10px
 }
 
 .add-content {
@@ -157,9 +180,8 @@ body {
   margin-top: 5px;
 }
 
-#save-btn, #submit-btn {
+#save-btn, #submit-btn, .update {
   background-color: #34d300;
-  font-size: large;
   color: white;
   border: none;
   width: 60px;
@@ -167,12 +189,14 @@ body {
   border-radius: 5px;
 }
 
-#delete-btn, #cancel-btn {
+.delete-btn, .cancel-btn {
   background-color: #ff2700;
   border: none;
   width: 60px;
   height: 30px;
   border-radius: 5px;
+  color: white;
+  font-size: 18px;
 }
 
 .fa-trash-alt {
