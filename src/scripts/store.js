@@ -28,8 +28,7 @@ const setError = (message) => {
 };
 
 const filterBookmarks = (value) => {
-  console.log(typeof value)
-  return bookmarkers.filter(item => item.rating === Number(value));
+  return bookmarkers.filter(item => item.rating >= Number(value));
 }
 
 

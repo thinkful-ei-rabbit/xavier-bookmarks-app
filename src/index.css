@@ -109,12 +109,12 @@ body {
   border-right: none;
 }
 
-.odd p {
+.odd h4 {
   margin-left: 12px;
-  font-size: x-large;
   margin-top: 10px;
   margin-bottom: 10px;
   text-transform: uppercase;
+  font-weight: 500;
 }
 
 .error-container {

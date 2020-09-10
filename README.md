@@ -1,4 +1,6 @@
 
+View at https://thinkful-ei-rabbit.github.io/xavier-bookmarks-app/
+
 My Bookmarks allows users to pin their favorite website to the app by entering the relevant site information via a form after clicking the addNew button 
 
 Users add the title, a url, a rating(1-5) that will be converted to stars, and a brief description
@@ -12,7 +14,7 @@ On load My Bookmarks will show previously saved bookmarks and the necessary butt
 
 Click on the name of a saved bookmark to visit the site attributed to it via a new tab. 
 
-Users may also filter through their bookmarks via the 'filter-by' button to display ratings at a desired star rating.
+Users may also filter through their bookmarks via the 'filter-by' button to display ratings at or above a desired star rating.
 
 Users may expand a saved bookmark by clicking the carat-down button.
 On expand, to un-expand, please click the cancel button.

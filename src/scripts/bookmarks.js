@@ -24,7 +24,7 @@ const generateBookmarksFromStore = (bookmarkList = store.bookmarkers) => {
     }
     bookmarksHtml += `<div class="row"><div class='accordion-head'>
     <div class="column odd">
-        <a href="${url}" target='_blank' class="bookmark-name-link"><p>${name}</p></a>
+        <a href="${url}" target='_blank' class="bookmark-name-link"><h4>${name}</h4></a>
     </div>
     <div class="column even">
         ${starsHtml}
@@ -47,8 +47,7 @@ const generateHeaderAndMainContainer = () => {
 <div class="container">
     <div class="buttons">
         <button id="add-new-btn">+ NEW <i class="fas fa-bookmark"></i></button>
-        <label for="filter-menu"></label>
-        <select id="filter-menu" name="filter-by">
+        <select id="filter-menu" name="filter-by" aria-label="filter by">
             <option value="all" selected>Filter By:</option>
             <option value="5">5 stars</option>
             <option value="4">4 stars</option>
